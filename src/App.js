@@ -18,7 +18,16 @@ function App() {
 
   const getIsFormValid = () => {
     // Implement this function
-    return true
+    if (
+      !firstName &&
+      validateEmail() &&
+      password.length > 7 &&
+      (role === 'individual' || role === 'business')
+    ) {
+      return true
+    } else {
+      return false
+    }
   }
 
   const clearForm = () => {
