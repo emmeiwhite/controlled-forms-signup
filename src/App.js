@@ -18,10 +18,17 @@ function App() {
 
   const getIsFormValid = () => {
     // Implement this function
+    console.log(`
+      Password: ${password.isTouched} 
+      firstName: ${firstName}
+      email: ${email}
+      role: ${role}
+      validateEmail: ${validateEmail(email)}
+      `)
     if (
-      !firstName &&
-      validateEmail() &&
-      password.length > 7 &&
+      firstName &&
+      validateEmail(email) &&
+      Number(password.value.length) > 7 &&
       (role === 'individual' || role === 'business')
     ) {
       return true
@@ -45,7 +52,12 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    if (!getIsFormValid()) {
+      return
+    }
     alert('Account created!')
+
     clearForm()
   }
 
