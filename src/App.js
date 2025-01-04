@@ -18,13 +18,13 @@ function App() {
 
   const getIsFormValid = () => {
     // Implement this function
-    console.log(`
-      Password: ${password.isTouched} 
-      firstName: ${firstName}
-      email: ${email}
-      role: ${role}
-      validateEmail: ${validateEmail(email)}
-      `)
+    // console.log(`
+    //   Password: ${password.isTouched}
+    //   firstName: ${firstName}
+    //   email: ${email}
+    //   role: ${role}
+    //   validateEmail: ${validateEmail(email)}
+    //   `)
     if (
       firstName &&
       validateEmail(email) &&
@@ -39,6 +39,14 @@ function App() {
 
   const clearForm = () => {
     // Implement this function
+    setFirstName('')
+    setLastName('')
+    setEmail('')
+    setPassword({
+      value: '',
+      isTouched: false
+    })
+    setRole('')
   }
 
   // Logic for password
