@@ -6,7 +6,7 @@ const PasswordErrorMessage = () => {
   return <p className="FieldError">Password should have at least 8 characters</p>
 }
 
-function App() {
+export default function App() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -14,27 +14,10 @@ function App() {
     value: '',
     isTouched: false
   })
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('role')
 
   const getIsFormValid = () => {
-    // Implement this function
-    // console.log(`
-    //   Password: ${password.isTouched}
-    //   firstName: ${firstName}
-    //   email: ${email}
-    //   role: ${role}
-    //   validateEmail: ${validateEmail(email)}
-    //   `)
-    if (
-      firstName &&
-      validateEmail(email) &&
-      Number(password.value.length) > 7 &&
-      (role === 'individual' || role === 'business')
-    ) {
-      return true
-    } else {
-      return false
-    }
+    return firstName && validateEmail(email) && password.value.length > 7 && role !== 'role'
   }
 
   const clearForm = () => {
@@ -47,15 +30,6 @@ function App() {
       isTouched: false
     })
     setRole('')
-  }
-
-  // Logic for password
-  const handlePassword = e => {
-    setPassword({
-      ...password,
-      isTouched: true,
-      value: e.target.value
-    })
   }
 
   const handleSubmit = e => {
@@ -110,7 +84,10 @@ function App() {
               type="password"
               placeholder="Password"
               value={password.value}
-              onChange={handlePassword}
+              onChange={e => setPassword({ ...password, value: e.target.value })}
+              onBlur={() => {
+                setPassword({ ...password, isTouched: true })
+              }}
             />
 
             {password.isTouched && password.value.length < 8 && <PasswordErrorMessage />}
@@ -123,7 +100,7 @@ function App() {
               value={role}
               onChange={e => setRole(e.target.value)}>
               <option
-                value=""
+                value="role"
                 disabled>
                 Role
               </option>
@@ -141,5 +118,3 @@ function App() {
     </div>
   )
 }
-
-export default App
